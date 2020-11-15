@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "name": {"type" : "text", "analyzer": "sudachi_analyzer"},
+    "prefecture": {"type": "keyword"},
+    "rulers": {"type": "text", "analyzer": "sudachi_analyzer"},
+    "description": {"type": "text", "analyzer": "sudachi_analyzer"}
+  }
+}

@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  elasticsearch:
+    build:
+      context: .
+      dockerfile: es/Dockerfile
+    image: elasticsearch-sudachi
+    environment:
+      - discovery.type=single-node
+      - cluster.name=es-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ports:
+      - 9200:9200
+  
+  search_api:
+    build:
+      context: .
+      dockerfile: search_api/Dockerfile
+    image: search-api
+    environment:
+      - ES_ADDRESS=http://elasticsearch:9200
+    ports:
+      - 8080:8080

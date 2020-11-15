@@ -1,0 +1,45 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "analysis": {
+        "tokenizer": {
+          "sudachi_tokenizer": {
+            "type": "sudachi_tokenizer",
+            "split_mode": "C",
+            "discard_punctuation": true,
+            "resources_path": "/usr/share/elasticsearch/config/sudachi",
+            "settings_path": "/usr/share/elasticsearch/config/sudachi/sudachi.json"
+          }
+        },
+        "analyzer": {
+          "sudachi_analyzer": {
+            "filter": [
+              "my_searchfilter",
+              "my_posfilter",
+              "sudachi_normalizedform"
+            ],
+            "tokenizer": "sudachi_tokenizer",
+            "type": "custom"
+          }
+        },
+        "filter":{
+          "my_searchfilter": {
+            "type": "sudachi_split",
+            "mode": "search"
+          },
+          "my_posfilter":{
+            "type":"sudachi_part_of_speech",
+            "stoptags":[
+              "助詞",
+              "助動詞",
+              "補助記号,句点",
+              "補助記号,読点"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
